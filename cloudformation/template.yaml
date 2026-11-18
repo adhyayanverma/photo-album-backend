@@ -471,7 +471,7 @@ Resources:
                       return respond(200, {"results": []})
 
                   keywords = get_keywords_from_lex(q)
-                  logger.info("Query %r -> keywords %s", q, keywords)
+                  logger.info("Search %r -> keywords %s", q, keywords)
                   if not keywords:
                       return respond(200, {"results": []})
 
