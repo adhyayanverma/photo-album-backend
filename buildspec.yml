@@ -1,0 +1,30 @@
+# CodeBuild spec for pipeline P1: tests, zips and deploys both Lambda functions.
+# The CodeBuild service role needs lambda:UpdateFunctionCode on both functions.
+version: 0.2
+
+env:
+  variables:
+    LF1_NAME: index-photos
+    LF2_NAME: search-photos
+
+phases:
+  install:
+    commands:
+      - python3 --version
+      - python3 -m pip install --quiet pytest boto3
+  pre_build:
+    commands:
+      - python3 -m pytest tests -q
+  build:
+    commands:
+      - cd lambdas/index-photos && zip -qr ../../lf1.zip . && cd ../..
+      - cd lambdas/search-photos && zip -qr ../../lf2.zip . && cd ../..
+  post_build:
+    commands:
+      - aws lambda update-function-code --function-name "$LF1_NAME" --zip-file fileb://lf1.zip --query 'LastModified' --output text
+      - aws lambda update-function-code --function-name "$LF2_NAME" --zip-file fileb://lf2.zip --query 'LastModified' --output text
+
+artifacts:
+  files:
+    - lf1.zip
+    - lf2.zip
