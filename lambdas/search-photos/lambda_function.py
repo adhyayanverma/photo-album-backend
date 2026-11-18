@@ -148,7 +148,7 @@ def lambda_handler(event, context):
             return respond(200, {"results": []})
 
         keywords = get_keywords_from_lex(q)
-        logger.info("Search %r -> keywords %s", q, keywords)
+        logger.info("Video demo %r -> keywords %s", q, keywords)
         if not keywords:
             return respond(200, {"results": []})
 
