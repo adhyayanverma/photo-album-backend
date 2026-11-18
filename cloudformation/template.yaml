@@ -159,7 +159,7 @@ Resources:
           OS_HOST: !Ref OpenSearchHost
           OS_USER: !Ref OpenSearchUser
           OS_PASS: !Ref OpenSearchPassword
-          OS_INDEX: photos
+          OS_INDEX: !Sub "${Prefix}-photos"
       Code:
         ZipFile: |
           """
@@ -315,7 +315,7 @@ Resources:
           OS_HOST: !Ref OpenSearchHost
           OS_USER: !Ref OpenSearchUser
           OS_PASS: !Ref OpenSearchPassword
-          OS_INDEX: photos
+          OS_INDEX: !Sub "${Prefix}-photos"
           BOT_ID: !Ref LexBotId
           BOT_ALIAS_ID: !Ref LexBotAliasId
           BOT_LOCALE_ID: en_US
